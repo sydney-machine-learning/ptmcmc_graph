@@ -1,0 +1,343 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options false
+\maintain_unincluded_children false
+\language australian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Metropolis–Hastings MCMC
+\end_layout
+
+\begin_layout Description
+\begin_inset Formula $X$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $x$
+\end_inset
+
+ state (possibly multivariate)
+\end_layout
+
+\begin_layout Description
+\begin_inset Formula $f_{X}(x)$
+\end_inset
+
+ target density (we want to sample from), that we can't compute
+\end_layout
+
+\begin_layout Description
+\begin_inset Formula $\pi(x)$
+\end_inset
+
+ density of 
+\begin_inset Formula $x$
+\end_inset
+
+ up to a constant, that we can
+\end_layout
+
+\begin_layout Description
+\begin_inset Formula $q(\cdot|\cdot)$
+\end_inset
+
+ proposal density
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f_{X}(x)=\frac{\pi(x)}{\int\pi(x')dx'}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Starting with 
+\begin_inset Formula $x^{(0)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Propose 
+\begin_inset Formula $x^{\star}\sim q(x^{\star}|x^{(t)})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Compute 
+\begin_inset Formula $\alpha=\min\left(1,\frac{\pi(x^{\star})}{\pi(x^{(t)})}\times\frac{q(x^{(t)}|x^{\star})}{q(x^{\star}|x^{(t)})}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+With probability 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, make 
+\begin_inset Formula $x^{(t+1)}=x^{\star}$
+\end_inset
+
+, otherwise 
+\begin_inset Formula $x^{(t+1)}=x^{(t)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Continue from 2 for a while.
+\end_layout
+
+\begin_layout Section
+Parallel Tempering MCMC
+\end_layout
+
+\begin_layout Description
+\begin_inset Formula $T$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\tau$
+\end_inset
+
+ 
+\begin_inset Quotes eld
+\end_inset
+
+temperature
+\begin_inset Quotes erd
+\end_inset
+
+ variables.
+\end_layout
+
+\begin_layout Description
+\begin_inset Formula $f_{X,T}(x,\tau)$
+\end_inset
+
+ augmented target density, in particular 
+\begin_inset Formula $f_{X,T}(x,1)\equiv f_{X}(x)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f_{X,T}(x,\tau)=\frac{\pi(x)^{1/\tau}}{\int\int\pi(x')^{1/\tau'}dx'd\tau'}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Starting with 
+\begin_inset Formula $(x^{(0,1)},\tau^{(0,1)})$
+\end_inset
+
+ and 
+\begin_inset Formula $(x^{(0,2)},\tau^{(0,2)})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+For 
+\begin_inset Formula $i=1,2$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Propose 
+\begin_inset Formula $x^{\star}\sim q(x^{\star}|x^{(t,i)})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Compute 
+\begin_inset Formula $\alpha=\min\left(1,\frac{\pi(x^{\star})^{1/\tau_{i}}}{\pi(x^{(t,i)})^{1/\tau_{i}}}\times\frac{q(x^{(t,i)}|x^{\star})}{q(x^{\star}|x^{(t,i)})}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+With probability 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, make 
+\begin_inset Formula $x^{(t+1,i)}=x^{\star}$
+\end_inset
+
+, otherwise 
+\begin_inset Formula $x^{(t+1,i)}=x^{(t,i)}$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Propose 
+\begin_inset Formula $(x^{\star,1},\tau^{\star,1})=(x^{(t,1)},\tau^{(t,2)})$
+\end_inset
+
+ and 
+\begin_inset Formula $(x^{\star,2},\tau^{\star,2})=(x^{(t,2)},\tau^{(t,1)})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Compute 
+\begin_inset Formula $\alpha=\min\left(1,\frac{\pi(x^{(t,1)})^{1/\tau^{(t,2)}}\times\pi(x^{(t,2)})^{\tau^{(t,1)}}}{\pi(x^{(t,1)})^{1/\tau^{(t,1)}}\times\pi(x^{(t,2)})^{1/\tau^{(t,2)}}}\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+With probability 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, make 
+\begin_inset Formula $(x^{(t+1,1)},\tau^{(t+1,1)})=(x^{(t,1)},\tau^{(t,2)})$
+\end_inset
+
+ and 
+\begin_inset Formula $(x^{(t+1,2)},\tau^{(t+1,2)})=(x^{(t,2)},\tau^{(t,1)})$
+\end_inset
+
+, otherwise copy old configurations.
+\end_layout
+
+\begin_layout Enumerate
+Continue from 2 for a while.
+\end_layout
+
+\begin_layout Enumerate
+Take those samples 
+\begin_inset Formula $(x^{(t)},\tau^{(t)})$
+\end_inset
+
+ where 
+\begin_inset Formula $\tau^{(t)}=1$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document
