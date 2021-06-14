@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1623631805 source:c:\users\sahil\desktop\cb files\c++ tutorial\openmp\main.cpp
+	<iostream>
+	<omp.h>
+	<unistd.h>
+
