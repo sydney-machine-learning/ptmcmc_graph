@@ -301,7 +301,7 @@ Propose
 
 \begin_layout Enumerate
 Compute 
-\begin_inset Formula $\alpha=\min\left(1,\frac{\pi(x^{(t,1)})^{1/\tau^{(t,2)}}\times\pi(x^{(t,2)})^{\tau^{(t,1)}}}{\pi(x^{(t,1)})^{1/\tau^{(t,1)}}\times\pi(x^{(t,2)})^{1/\tau^{(t,2)}}}\right)$
+\begin_inset Formula $\alpha_{\tau}=\min\left(1,\frac{\pi(x^{(t,1)})^{1/\tau^{(t,2)}}\times\pi(x^{(t,2)})^{\tau^{(t,1)}}}{\pi(x^{(t,1)})^{1/\tau^{(t,1)}}\times\pi(x^{(t,2)})^{1/\tau^{(t,2)}}}\right)$
 \end_inset
 
 .
@@ -309,7 +309,7 @@ Compute
 
 \begin_layout Enumerate
 With probability 
-\begin_inset Formula $\alpha$
+\begin_inset Formula $\alpha_{\tau}$
 \end_inset
 
 , make 
@@ -337,6 +337,72 @@ Take those samples
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+Application to ERGM
+\end_layout
+
+\begin_layout Subsection
+Ordinary MCMC
+\end_layout
+
+\begin_layout Standard
+In an ERGM, the numerator is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\pi(x)=e^{\eta(\theta)\cdot g(x)}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then, M–H acceptance is
+\begin_inset Formula 
+\begin{align*}
+\alpha & =\min\left(1,\frac{\pi(x^{\star})}{\pi(x^{(t)})}\times\frac{q(x^{(t)}|x^{\star})}{q(x^{\star}|x^{(t)})}\right)\\
+ & =\min\left(1,\frac{e^{\eta(\theta)\cdot g(x^{\star})}}{e^{\eta(\theta)\cdot g(x^{(t)})}}\times\frac{q(x^{(t)}|x^{\star})}{q(x^{\star}|x^{(t)})}\right)\\
+ & =\min\left(1,e^{\eta(\theta)\cdot g(x^{\star})-\eta(\theta)\cdot g(x^{(t)})}\times\frac{q(x^{(t)}|x^{\star})}{q(x^{\star}|x^{(t)})}\right)\\
+ & =\min\left(1,e^{\eta(\theta)\cdot\{g(x^{\star})-g(x^{(t)})\}}\times\frac{q(x^{(t)}|x^{\star})}{q(x^{\star}|x^{(t)})}\right)\\
+ & =\exp\min\left(0,\eta(\theta)\cdot\{g(x^{\star})-g(x^{(t)})\}+\log\frac{q(x^{(t)}|x^{\star})}{q(x^{\star}|x^{(t)})}\right)
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Parallel tempering MCMC
+\end_layout
+
+\begin_layout Standard
+With tempering in effect,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\pi(x)^{1/\tau}=(e^{\eta(\theta)\cdot g(x)})^{1/\tau}=e^{\eta(\theta)\cdot g(x)/\tau}=e^{\{\eta(\theta)/\tau\}\cdot g(x)}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{align*}
+\alpha_{\tau} & =\min\left(1,e^{\{\eta(\theta)/\tau\}\cdot\{g(x^{\star})-g(x^{(t)})\}}\times\frac{q(x^{(t)}|x^{\star})}{q(x^{\star}|x^{(t)})}\right)
+\end{align*}
+
+\end_inset
+
+
 \end_layout
 
 \end_body
